@@ -9,7 +9,7 @@ A powerful real estate investment analysis tool built with Next.js and Shadcn, p
 - **Interactive Charts**: Built with Shadcn and Recharts for seamless data visualization.
 
 ## Demo
-Check out the live demo [here](https://real-estate-investment-estimator.vercel.app/).
+Check out the live demo [here](https://realestate-estimator.vercel.app/).
 
 ## Installation
 
