@@ -8,6 +8,9 @@ A powerful real estate investment analysis tool built with Next.js and Shadcn, p
 - **Investment Metrics**: Key indicators like Cap Rate, Cash-on-Cash Return, ROI, and break-even analysis.
 - **Interactive Charts**: Built with Shadcn and Recharts for seamless data visualization.
 
+## Demo
+Check out the live demo [here](https://real-estate-investment-estimator.vercel.app/).
+
 ## Installation
 
 Clone the repository, install dependencies, and start the development server:
