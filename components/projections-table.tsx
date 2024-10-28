@@ -23,7 +23,7 @@ export function ProjectionsTable({ projections }: ProjectionsTableProps) {
           <TableHead>Rental Income</TableHead>
           <TableHead>Expenses</TableHead>
           <TableHead>NOI</TableHead>
-          <TableHead>Loan Payment</TableHead>
+          <TableHead>Loan Balance</TableHead>
           <TableHead>Cash Flow</TableHead>
           <TableHead>Property Value</TableHead>
           <TableHead>Equity</TableHead>
