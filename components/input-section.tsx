@@ -2,7 +2,9 @@
 
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useToast } from "@/hooks/use-toast"
 import { InputValues } from './dashboard'
+import { useState } from 'react'
 
 type InputSectionProps = {
   inputs: InputValues
@@ -10,14 +12,42 @@ type InputSectionProps = {
 }
 
 export function InputSection({ inputs, onInputChange }: InputSectionProps) {
+  const { toast } = useToast()
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-    if (name !== 'propertyPrice' && name !== 'loanAmount') {
-      onInputChange({ [name]: parseFloat(value) })
-      return
-    } 
+    const numericValue = parseFloat(value)
 
-    onInputChange({ [name]: parseFloat(value), equityInvestment: inputs.propertyPrice - parseFloat(value) })
+
+
+    // Validation rules
+    if (
+      numericValue < 0 ||
+      (name === 'loanAmount' && numericValue > inputs.propertyPrice) ||
+      ((name === 'interestRate' || name.includes('Increase') || name === 'annualPropertyAppreciation') && (numericValue < 0 || numericValue > 100)) ||
+      (name === 'mortgageTerm' && (numericValue < 1 || numericValue > 30)) ||
+      // if the field is empty
+      isNaN(numericValue)
+    ) {
+
+      toast({
+        variant: "destructive",
+        title: "Invalid Input",
+        description: `Please provide a valid value for ${name.replace(/([A-Z])/g, ' $1').toLowerCase()}.`,
+      })
+      return
+    }
+
+
+    // Update values
+    if (name !== 'propertyPrice' && name !== 'loanAmount') {
+      onInputChange({ [name]: numericValue })
+    } else {
+      onInputChange({
+        [name]: numericValue,
+        equityInvestment: inputs.propertyPrice - (name === 'loanAmount' ? numericValue : inputs.loanAmount),
+      })
+    }
   }
 
   return (
@@ -50,6 +80,7 @@ export function InputSection({ inputs, onInputChange }: InputSectionProps) {
           type="number"
           value={inputs.propertyPrice - inputs.loanAmount}
           readOnly
+          className="bg-gray-100"
         />
       </div>
       <div className="space-y-2">
